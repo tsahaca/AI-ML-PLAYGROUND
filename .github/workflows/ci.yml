@@ -1,0 +1,46 @@
+name: CI Dispatch
+
+# Workflow can be manually triggered
+on:
+  workflow_dispatch:
+    inputs:
+      project:
+        description: 'Select which project to run the workflow for'
+        required: true
+        default: 'faiss_embedding'
+        type: choice
+        options:
+          - faiss_embedding
+          - project_TBD
+      branch:
+        description: 'Branch to run the workflow on'
+        required: true
+        default: 'develop'
+        type: string    
+
+jobs:
+  run_faiss_embedding:
+    if: ${{ github.event.inputs.project == 'faiss_embedding' }}
+    runs-on: ubuntu-latest
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.inputs.branch }}
+
+      # Step 2: Set up Python environment
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install faiss-cpu gensim
+
+      # Step 4: Run the script
+      - name: Run FAISS embedding script
+        run: python faiss_embedding.py
