@@ -25,7 +25,15 @@ words = ['king', 'queen', 'man', 'woman', 'infant', 'child', 'boy', 'girl',
 word_vectors = np.array([word2vec_model[word] for word in words if word in word2vec_model])
 
 # Number of dimensions of the word embeddings (should be 300 for Word2Vec)
+d0 = word_vectors.shape[0]
 d = word_vectors.shape[1]
+
+# Restore stdout and stderr (optional if you need them later)
+sys.stdout = sys.__stdout__
+sys.stderr = sys.__stderr__
+
+print(f"word_vectors.shape[0]='{d0}':")
+print(f"word_vectors.shape[1]='{d}':")
 
 # Initialize a FAISS index for L2 (Euclidean) distance search
 index = faiss.IndexFlatL2(d)
@@ -33,9 +41,6 @@ index = faiss.IndexFlatL2(d)
 # Add word vectors to the FAISS index
 index.add(word_vectors)
 
-# Restore stdout and stderr (optional if you need them later)
-sys.stdout = sys.__stdout__
-sys.stderr = sys.__stderr__
 
 # Search the nearest neighbors for a query word
 def find_similar(word, top_n=5):
@@ -55,4 +60,4 @@ find_similar('king', top_n=5)
 find_similar('hotel', top_n=5)
 
 # Example usage: Find top 5 similar words to 'Shreya Ghoshal'
-find_similar('Shreya Ghoshal', top_n=5)
+find_similar('garden', top_n=5)
