@@ -3,6 +3,7 @@ import gensim.downloader as api
 import numpy as np
 import logging
 import sys
+import os
 
 # Set Gensim logging to show only errors and critical messages
 logging.getLogger('gensim').setLevel(logging.ERROR)
