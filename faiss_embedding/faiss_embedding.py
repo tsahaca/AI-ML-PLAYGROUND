@@ -2,10 +2,16 @@ import faiss
 import gensim.downloader as api
 import numpy as np
 import logging
+import sys
 
 # Set Gensim logging to show only errors and critical messages
 logging.getLogger('gensim').setLevel(logging.ERROR)
 logging.getLogger('smart_open').setLevel(logging.ERROR)
+
+# Redirect stdout and stderr to suppress any potential output
+sys.stdout = open(os.devnull, 'w')
+sys.stderr = open(os.devnull, 'w')
+
 
 # Pre-trained Word2Vec model from Gensim
 word2vec_model = api.load('word2vec-google-news-300')  # Word2Vec with 300 dimensions, trained on Google News
@@ -25,6 +31,10 @@ index = faiss.IndexFlatL2(d)
 
 # Add word vectors to the FAISS index
 index.add(word_vectors)
+
+# Restore stdout and stderr (optional if you need them later)
+sys.stdout = sys.__stdout__
+sys.stderr = sys.__stderr__
 
 # Search the nearest neighbors for a query word
 def find_similar(word, top_n=5):
