@@ -46,4 +46,4 @@ jobs:
       - name: Run FAISS embedding script
         run: |
           cd faiss_embedding
-          python faiss_embedding.py > /dev/null
+          python faiss_embedding.py
