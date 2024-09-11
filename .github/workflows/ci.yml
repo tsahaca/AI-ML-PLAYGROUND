@@ -40,7 +40,7 @@ jobs:
         run: |
           cd faiss_embedding
           python -m pip install --upgrade pip
-          pip install faiss-cpu gensim
+          pip install -r requirements.txt
 
       # Step 4: Run the script
       - name: Run FAISS embedding script

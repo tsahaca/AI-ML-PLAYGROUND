@@ -53,3 +53,6 @@ find_similar('king', top_n=5)
 
 # Example usage: Find top 5 similar words to 'hotel'
 find_similar('hotel', top_n=5)
+
+# Example usage: Find top 5 similar words to 'Shreya Ghoshal'
+find_similar('Shreya Ghoshal', top_n=5)
