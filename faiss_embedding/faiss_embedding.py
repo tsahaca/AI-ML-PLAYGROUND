@@ -3,8 +3,9 @@ import gensim.downloader as api
 import numpy as np
 import logging
 
-# Set logging to show only errors
-logging.basicConfig(level=logging.ERROR)
+# Set Gensim logging to show only errors and critical messages
+logging.getLogger('gensim').setLevel(logging.ERROR)
+logging.getLogger('smart_open').setLevel(logging.ERROR)
 
 # Pre-trained Word2Vec model from Gensim
 word2vec_model = api.load('word2vec-google-news-300')  # Word2Vec with 300 dimensions, trained on Google News
